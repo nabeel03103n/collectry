@@ -1,0 +1,58 @@
+    {% extends "base.html" %}
+    {% block style %}
+      
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/js/index.js"></script>
+    {% endblock style %}
+    {% block title %}Home{% endblock title %}
+    
+    {% block main %}
+    
+    <!-- <h1>Emitra - Dashboard</h1> -->
+    {% if user.is_authenticated %}
+    <center>
+        <h3>Hi what {{ user.username }}</h3><br>
+
+        <div id="infoCon">
+            <form method="post" action="/">
+                {% csrf_token %}
+
+                <label for="merchantID">Merchant ID:</label>
+                <input type="text" name="merchantID" id="merchantID" required>
+                <label for="SSOID">SSOID:</label>
+                <input type="text" name="SSOID" id="SSOID">
+            <button id="button" type="submit">Submit</button>
+
+            </div>
+        </form>
+
+<div class="emitra left_keys">
+
+    {% for element in keys %}
+    <h6>{{ element }}</h6>
+    {% endfor %}
+</div>
+    <div class="emitra right_values">
+
+        
+        {% for element in values %}
+        <h6>{{ element }}</h6>
+        {% endfor %}
+    </div>    
+        
+    </center>
+    
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">logout</button>
+    </form>
+    {% else %}
+    <p> You're not logged in</p>
+    <a href="/signup">Sign up</a>
+    <a href="{% url 'login' %}">Login</a>
+    
+    {% endif %}
+    
+
+    {% endblock main %}
+    

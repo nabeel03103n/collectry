@@ -1,0 +1,26 @@
+
+
+.emitra{
+    display: inline;
+    width: 90%;
+
+}
+
+.left_keys{
+    /* position: absolute; */
+    display: inline-block;
+    
+    left: 0;
+    margin: 1vh 1vw;
+    text-align: justify;
+
+}
+
+.right_values{
+    /* position: absolute; */
+    display: inline-block;
+    
+    right: 0;
+    margin: 1vh -5vw;
+    text-align: justify;
+}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Contact Us{% endblock title %}
+{% block main %}
+<link rel="stylesheet" href="/static/css/contact.css">
+<link rel="stylesheet" href="/static/css/base.css">
+
+
+    <div class="contact-form">
+        <h2>Contact Us</h2>
+        <form method="post" action="/contact/">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="tel">Phone:</label>
+                <input type="tel" id="tel" name="tel" required>
+            </div>
+            <div class="form-group">
+                <label for="state">State:</label>
+                <input type="state" id="state" name="state" required>
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input type="city" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="pincode">Pin Code:</label>
+                <input type="pincode" id="pincode" name="pincode" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            <button id="button" type="submit">Submit</button>
+        </form>
+    </div>
+
+
+{% endblock main %}

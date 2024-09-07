@@ -1,0 +1,28 @@
+<!-- payment_form.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Form</title>
+</head>
+<body>
+    <form id="surepay-form" method="POST" action="https://surepay.ndml.in/SurePayPayment/sp/processRequest">
+        <input type="hidden" name="messageType" value="{{ form_data.messageType }}"/>  
+        <input type="hidden" name="merchantId" value="{{ form_data.merchantId }}"/>  
+        <input type="hidden" name="serviceId" value="{{ form_data.serviceId }}"/>  
+        <input type="hidden" name="currencyCode" value="{{ form_data.currencyCode }}"/>  
+        <input type="hidden" name="successUrl" value="{{ form_data.successUrl }}"/>  
+        <input type="hidden" name="failUrl" value="{{ form_data.failUrl }}"/>  
+        <input type="hidden" name="orderId" value="{{ form_data.orderId }}"/>  
+        <input type="hidden" name="customerId" value="{{ form_data.customerId }}"/>  
+        <input type="hidden" name="transactionAmount" value="{{ form_data.transactionAmount }}"/> 
+        <input type="hidden" name="requestDateTime" value="{{ form_data.requestDateTime }}"/> 
+        <input type="hidden" name="additionalField1" value="{{ form_data.additionalField1 }}"/>  
+        <input type="hidden" name="additionalField2" value="{{ form_data.additionalField2 }}"/>  
+        <input type="hidden" name="additionalField3" value="{{ form_data.additionalField3 }}"/> 
+        <input type="hidden" name="additionalField4" value="{{ form_data.additionalField4 }}"/>  
+        <input type="hidden" name="additionalField5" value="{{ form_data.additionalField5 }}"/>  
+        <input type="hidden" name="checksum" value="{{ checksum }}"/> 
+        <button type="submit">Pay Now</button>
+    </form>
+</body>
+</html>

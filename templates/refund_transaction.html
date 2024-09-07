@@ -1,0 +1,32 @@
+<!-- refund_transaction.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Refund Transaction</title>
+</head>
+<body>
+    <h2>Refund Transaction</h2>
+    <form method="post">
+        {% csrf_token %}
+        <label for="mid">Merchant ID:</label>
+        <input type="text" name="mid" required><br><br>
+        <label for="order_id">Order ID:</label>
+        <input type="text" name="order_id" required><br><br>
+        <label for="refund_req_id">Refund Request ID:</label>
+        <input type="text" name="refund_req_id" required><br><br>
+        <label for="bank_transaction_no">Bank Transaction No:</label>
+        <input type="text" name="bank_transaction_no" required><br><br>
+        <label for="service_id">Service ID:</label>
+        <input type="text" name="service_id" required><br><br>
+        <label for="surepay_txn_id">SurePay Transaction ID:</label>
+        <input type="text" name="surepay_txn_id" required><br><br>
+        <label for="transaction_amount">Transaction Amount:</label>
+        <input type="text" name="transaction_amount" required><br><br>
+        <label for="ref_amount">Refund Amount:</label>
+        <input type="text" name="ref_amount" required><br><br>
+        <label for="checksum">Checksum:</label>
+        <input type="text" name="checksum" required><br><br>
+        <button type="submit">Process Refund</button>
+    </form>
+</body>
+</html>
