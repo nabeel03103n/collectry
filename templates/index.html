@@ -1,82 +1,59 @@
 {% extends "base.html" %}
 {% block style %}
-
 <link rel="stylesheet" href="/static/css/index.css">
 <script src="/static/js/index.js"></script>
 
 <style>
-    .btn {
-        justify-content: center;
-    }
-
-    table {
-        width: 80%;
-        margin: auto;
-        border-collapse: collapse;
-    }
-
-    th, td {
-        border: 1px solid #ddd;
-        padding: 8px;
-        text-align: left;
-    }
-
-    th {
-        background-color: #f2f2f2;
-    }
-
-    tr:hover {
-        background-color: #f9f9f9;
-    }
+ 
 </style>
 
 {% endblock style %}
 
-
 {% block title %}Home{% endblock title %}
 
 {% block main %}
-
 {% if user.is_authenticated %}
-<form method="post">
-    {% csrf_token %}
-    <input type="hidden" value="{{ user.username }}" id="username" name="username">
-</form>
-<center>
-    <h3>Welcome, {{ user.username }}</h3><br>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{ user.username }}" id="username" name="username">
+    </form>
+    <center>
+        <h3 class="welcome-message">Welcome, {{ user.username }}</h3><br>
 
-    {% if data %}
-    <div class="emitra left_keys">
-        <table>
-            <thead>
-                <tr>
-                    <th>Key</th>
-                    <th>Value</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for key, value in data %}
-                <tr>
-                    <td>{{ key }}</td>
-                    <td>{{ value }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    {% else %}
-    <p>No data available to display.</p>
-    {% endif %}
-</center>
+        {% if data %}
+            <div class="emitra left_keys">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Key</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, value in data %}
+                        <tr>
+                            <td>{{ key }}</td>
+                            <td>{{ value }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="no-data-message">No data available to display.</p>
+        {% endif %}
+    </center>
 
-<form method="post" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button class="btn" type="submit">Logout</button>
-</form>
+    <form method="post" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button class="btn" type="submit">Logout</button>
+    </form>
+
 {% else %}
-<p>You're not logged in.</p>
-<button class="btn"><a href="/signup">Sign up</a></button>
-<a href="{% url 'login' %}">Login</a>
+    <div class="auth-buttons">
+        <p>You're not logged in. Please log in or sign up to continue:</p>
+        <a href="/signup" class="btn">Sign Up</a>
+        <a href="{% url 'login' %}" class="btn">Login</a>
+    </div>
 {% endif %}
-
 {% endblock main %}

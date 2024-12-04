@@ -1,50 +1,109 @@
 {% extends "base.html" %}
 {% load static %}
 
+<head>
+    {% block title %}Home{% endblock title %}
+    {% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <style>
+        /* Lightbox Styles */
+        .lightbox {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Black background with opacity */
+            justify-content: center;
+            align-items: center;
+        }
 
-<head>{% block title %}Home{% endblock title %}
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80%;
+            margin: auto;
+            display: block;
+        }
 
-    <link rel="stylesheet" href="/static/css/home.css">
+        /* Close Button */
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #f1f1f1;
+            text-decoration: none;
+        }
+    </style>
+    {% endblock style %}
 </head>
+
 {% block main %}
 <body>
-    
     <!-- News Slider -->
     <section class="news-slider">
         <div class="slider">
+            {% for news_item in news %}
             <div class="slide">
-                <p>News 1: Important Update on the ARDO exam...</p>
+                <p>{{ news_item }}</p>
             </div>
-            <div class="slide">
-                <p>News 2: Registration for new applications is now open...</p>
-            </div>
-            <div class="slide">
-                <p>News 3: Blacklisted candidates can reapply for exams...</p>
-            </div>
+            {% endfor %}
         </div>
     </section>
 
+    <!-- Main Content -->
     <main class="main-content">
-        <!-- Advertisement Left -->
+        {% for ad in advertisements %}
         <div class="advertisement left-ad">
             <h2>Advertisement</h2>
-            <img width="25%" src="/static/img/1.jpg" alt="Left Advertisement">
-            <p>Your ad could be here!</p>
+            <p>{{ ad.title }} <br> {{ ad.content }} <br> Start Date: {{ ad.start_date }} <br> End Date: {{ ad.end_date }}</p>
+
+            <!-- Image click trigger -->
+            {% if ad.image %}
+            <div class="image-container">
+                <img src="{{ ad.image.url }}" alt="{{ ad.title }}" width="30%" class="thumbnail">
+            </div>
+            {% else %}
+            <p>No image available for this ad.</p>
+            {% endif %}
         </div>
+        {% endfor %}
         
-        <!-- Content Box -->
-        <div class="content-box">
-            <img width="25%" src="/static/img/1.jpg" alt="Exam Illustration">
-            <p>Prepare for your upcoming exams with our comprehensive study guides and online courses.</p>
-        </div>
-        
-        <!-- Advertisement Right -->
-        <div class="advertisement right-ad">
-            <h2>Advertisement</h2>
-            <img width="25%" src="/static/img/1.jpg" alt="Right Advertisement">
-            <p>Your ad could be here!</p>
-        </div>
     </main>
-    {% endblock main %}
+
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="lightbox">
+        <span class="close" onclick="closeLightbox()">&times;</span>
+        <img id="lightbox-image" src="" alt="">
+    </div>
+
+    <script>
+        // Get the lightbox and image elements
+        var lightbox = document.getElementById("lightbox");
+        var lightboxImage = document.getElementById("lightbox-image");
+
+        // Add event listener to images for the lightbox effect
+        var thumbnails = document.querySelectorAll(".thumbnail");
+        thumbnails.forEach(function(thumbnail) {
+            thumbnail.onclick = function() {
+                lightbox.style.display = "flex"; // Show the lightbox
+                lightboxImage.src = this.src; // Set the image source of the lightbox to the clicked image
+            };
+        });
+
+        // Function to close the lightbox
+        function closeLightbox() {
+            lightbox.style.display = "none"; // Hide the lightbox
+        }
+    </script>
 </body>
-    
+{% endblock main %}

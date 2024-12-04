@@ -46,6 +46,8 @@ urlpatterns = [
     path('advertisements/add/', views.add_advertisement, name='add_advertisement'),
      path('advertisements/', views.advertisement_list, name='advertisement_list'),
      path('get_districts/', views.get_districts, name='get_districts'),
+     path('special-login/', views.special_login, name='special_login'),
+     
 
 
 ] 

@@ -1,4 +1,5 @@
 from reportlab.lib.pagesizes import letter
+from django.contrib.auth.models import User
 from reportlab.pdfgen import canvas
 import requests
 from django.contrib.auth.decorators import login_required,user_passes_test
@@ -27,7 +28,36 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 
+
 # Create your views here.
+
+def get_emitra_api_response(ssoid, merchantid):
+    """
+    This function makes a request to the Emitra API using the provided ssoid and merchantid.
+    Returns the response data if successful, otherwise returns an error message.
+    """
+    url = "http://emitrauat.rajasthan.gov.in/webServicesRepositoryUat/getKioskDetailsJSON"
+    payload = {
+        "MERCHANTCODE": merchantid,
+        "SSOID": ssoid,
+    }
+    headers = {"Content-Type": "application/x-www-form-urlencoded"}
+
+    try:
+        # Send POST request to the Emitra API
+        response = requests.post(url, data=payload, headers=headers)
+
+        if response.status_code == 200:
+            data = response.json()
+            data_keys = list(data.keys())
+            data_values = list(data.values())
+            return {"keys": data_keys, "values": data_values, "data": zip(data_keys, data_values)}
+        else:
+            return {"error": f"API response error: {response.status_code}, {response.text}"}
+    except requests.exceptions.RequestException as e:
+        return {"error": f"An error occurred while fetching data: {e}"}
+
+
 def index(request):
     text = {"t1": "No data available"}
     try:
@@ -253,20 +283,29 @@ def add_advertisement(request):
             return redirect('advertisement_list')
     else:
         form = AdvertisementForm()
-    return render(request, 'advertisements/add_advertisement.html', {'form': form})
+    
+    return redirect("http://127.0.0.1:8000/admin/user/advertisement/add/")
+    # return render(request, 'advertisements/add_advertisement.html', {'form': form})
 
+
+def special_login(request):
+    # Get ssoid and merchantid parameters from the URL (or POST request)
+    ssoid = request.GET.get('ssoid')
+    merchantid = request.GET.get('merchantid')
+    response = get_emitra_api_response(ssoid,merchantid)
+    return HttpResponse(f"{response}")
+    
 
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
-        merchantID = request.POST.get("merchantid")
-        ssoid = request.POST.get("ssoid")
+
+        email = request.POST.get("email")
         username = request.POST.get("username")
+        password = request.POST.get("password1")
 
-        ins = models.InfoAPI(merchantid=merchantID, ssoid=ssoid,username=username)
-        ins.save()
 
-        print(f"{ssoid} {merchantID} {username}")
+        print(f"{email} {username} {password}")
         
 
         if form.is_valid():
@@ -280,7 +319,9 @@ def about(request):
     return render(request,"about.html")
 
 def home(request):
-    return render(request,"home.html")
+    advertisements = models.Advertisement.objects.all()
+
+    return render(request,"home.html",{"advertisements":advertisements})
 
 
 def create_pdf(filename, content):
@@ -348,14 +389,14 @@ def form_page(request):
             "fullName": request.POST.get('fullName'),
             "fatherName": request.POST.get("fatherName"),
             "motherName": request.POST.get("motherName"),
-            "DOB": request.POST.get("DOB"),
+            "dob": request.POST.get("DOB"),
             "category": request.POST.get("category"),
             "gender": request.POST.get("gender"),
             "nationality": request.POST.get("nationality"),
             "marital": request.POST.get("marital"),
             "disability": request.POST.get("disability"),
             "select_disability": request.POST.get("select_disability"),
-            "DSRVS": request.POST.get("DSRVS"),
+            "dsrvs": request.POST.get("DSRVS"),
             "address": request.POST.get("address"),
             "city": request.POST.get("city"),
             "userstate": request.POST.get("userstate"),
@@ -396,6 +437,8 @@ def form_page(request):
 
         user_data_for_pdf = [f"{key}: {value}" for key, value in user_data.items() if value]
         create_pdf("static/pdf/output.pdf",user_data_for_pdf)
+
+        model = models.UserForm.objects.create(**user_data)
 
         return render(request, "form/form_submit.html", {"data": user_data})
 

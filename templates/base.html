@@ -15,6 +15,7 @@
             <h1>Emitra Dashboard</h1>
             <button class="menu-toggle" id="menuToggle">☰</button>
             <ul class="nav-list" id="navList">
+                <button class="close-menu deactive" id="closeMenu">×</button>
                 <li><a href="/emitra">Emitra</a></li>
                 <li><a href="/">Home</a></li>
                 <li><a href="/advertisements">Advertisements</a></li>
@@ -28,32 +29,42 @@
                 <li><a href="https://ideedonline.ac.in/index.php?welcome/admit_card">Admit Card</a></li>
                 {% if user.is_authenticated %}
                 <form method="post" action="{% url 'logout' %}" style="margin: 0;">
-                    {% csrf_token %}
-                    <button id="BtnLogOut" type="submit">Logout</button>
+                  {% csrf_token %}
+                  <button id="BtnLogOut" type="submit">Logout</button>
                 </form>
                 {% else %}
                 <li><a href="/accounts/login">Login</a></li>
                 <li><a href="/signup">SignUp</a></li>
                 {% endif %}
-            </ul>
+              </ul>
         </nav>
     </header>
     
     <main>
         {% block main %}{% endblock main %}
     </main>
+
     <footer>
         <p>&copy; 2024 IDEED. All rights reserved.</p>
     </footer>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const menuToggle = document.getElementById("menuToggle");
-            const navList = document.getElementById("navList");
-
-            menuToggle.addEventListener("click", function() {
-                navList.classList.toggle("active");
-            });
+        document.addEventListener("DOMContentLoaded", function () {
+          const menuToggle = document.getElementById("menuToggle");
+          const navList = document.getElementById("navList");
+          const closeMenu = document.getElementById("closeMenu");
+      
+          menuToggle.addEventListener("click", function () {
+            navList.classList.add("active"); // Show the menu
+            menuToggle.classList.add("deactive");
+            closeMenu.classList.remove("deactive")
+          });
+          
+          closeMenu.addEventListener("click", function () {
+            navList.classList.remove("active"); // Hide the menu
+            menuToggle.classList.remove("deactive");
+            closeMenu.classList.add("deactive")
+          });
         });
     </script>
 </body>

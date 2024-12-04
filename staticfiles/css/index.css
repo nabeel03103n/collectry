@@ -34,3 +34,71 @@
     margin: 1vh -5vw;
     text-align: justify;
 }
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+.welcome-message {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.no-data-message {
+    font-size: 18px;
+    color: #888;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.auth-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.auth-buttons a {
+    margin: 0 10px;
+    font-size: 16px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.auth-buttons a:hover {
+    text-decoration: underline;
+}

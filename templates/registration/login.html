@@ -1,15 +1,32 @@
 {% extends "base.html" %}
 
 {% block title %}Login{% endblock title %}
+{% block style %}
+<link rel="stylesheet" href="/static/css/registrations/login.css">
+  
+{% endblock style %}
 {% block main %}
 
-<h1>Please Login</h1>
-      <form method="post" id="login_form">
-        {% csrf_token %}
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" >
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password">
-            <button type="submit">Log In</button>
+<center>
+
+  <div class="main">
+    
+    
+    <h1>Please Login</h1>
+    <form method="post" id="login_form">
+      {% csrf_token %}
+      <div class="username">
+
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" >
+      </div>
+      <div class="pass">
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password">
+      </div>
+      
+              <button type="submit">Log In</button>
             </form>  
+          </div>
+        </center>
 {% endblock main %}

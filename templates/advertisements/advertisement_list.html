@@ -4,7 +4,10 @@
 
 {% block main %}
 <h2>Advertisements</h2>
-<a href="{% url 'add_advertisement' %}">Add New Advertisement</a>
+<button style="background-color: #3b4e70; border: 1px solid black; border-radius: 10px;">
+
+    <a style="text-decoration: none; color: white; padding: 9px;" href="{% url 'add_advertisement' %}">Add New Advertisement</a>
+</button>
 <table class="advertisement-table">
     <thead>
         <tr>

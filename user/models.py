@@ -56,6 +56,14 @@ class InfoAPI(models.Model):
         return objName
 
 
+#Special Login
+class UserProfile(models.Model):
+    ssoid = models.CharField(max_length=100, unique=True)
+    merchantid = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return self.ssoid
+
 
 class Location(models.Model):
     state = models.CharField(max_length=100)
@@ -63,7 +71,51 @@ class Location(models.Model):
 
     def __str__(self):
         return f"{self.district}, {self.state}"
-    
+
+class UserForm(models.Model):
+    user_state = models.CharField(max_length=100,null=True,blank=True)
+    district = models.CharField(max_length=100,null=True,blank=True)
+    fullName = models.CharField(max_length=100,null=True,blank=True)
+    fatherName = models.CharField(max_length=100,null=True,blank=True)
+    motherName = models.CharField(max_length=100,null=True,blank=True)
+    dob = models.CharField(max_length=100,null=True,blank=True)
+    category = models.CharField(max_length=100,null=True,blank=True)
+    gender = models.CharField(max_length=100,null=True,blank=True)
+    nationality = models.CharField(max_length=100,null=True,blank=True)
+    marital = models.CharField(max_length=100,null=True,blank=True)
+    disability = models.CharField(max_length=100,null=True,blank=True)
+    select_disability = models.CharField(max_length=100,null=True,blank=True)
+    dsrvs = models.CharField(max_length=100,null=True,blank=True)
+    address = models.CharField(max_length=100,null=True,blank=True)
+    city = models.CharField(max_length=100,null=True,blank=True)
+    userstate = models.CharField(max_length=100,null=True,blank=True)
+    userdistrict = models.CharField(max_length=100,null=True,blank=True)
+    pin_code = models.CharField(max_length=100,null=True,blank=True)
+    phone = models.CharField(max_length=100,null=True,blank=True)
+    mobile = models.CharField(max_length=100,null=True,blank=True)
+    email = models.EmailField(null=True,blank=True)
+    passing_year = models.CharField(max_length=100,null=True,blank=True)
+    diviosn_grade = models.CharField(max_length=100,null=True,blank=True)
+    secondary_passing_year = models.CharField(max_length=100,null=True,blank=True)
+    secondary_passing_grade = models.CharField(max_length=100,null=True,blank=True)
+    higher_secondary_passing_year = models.CharField(max_length=100,null=True,blank=True)
+    higher_secondary_passing_grade = models.CharField(max_length=100,null=True,blank=True)
+    graduate_passing_year = models.CharField(max_length=100,null=True,blank=True)
+    graduate_passing_grade = models.CharField(max_length=100,null=True,blank=True)
+    post_graduate_passing_year = models.CharField(max_length=100,null=True,blank=True)
+    post_graduate_passing_grade = models.CharField(max_length=100,null=True,blank=True)
+    professional_passing_year = models.CharField(max_length=100,null=True,blank=True)
+    professional_passing_grade = models.CharField(max_length=100,null=True,blank=True)
+    id_proof_select = models.CharField(max_length=100,null=True,blank=True)
+    id_proof_number = models.CharField(max_length=100,null=True,blank=True)
+    id_proof_marks = models.CharField(max_length=100,null=True,blank=True)
+    id_proof_study_center = models.CharField(max_length=100,null=True,blank=True)
+    id_proof_school = models.CharField(max_length=100,null=True,blank=True)
+    i_agree = models.CharField(max_length=100,null=True,blank=True)
+    passport_size_photo = models.ImageField(upload_to="userform/",null=True,blank=True)
+
+    def __str__(self):
+        return f"{self.fullName}, {self.phone}"
 
 def custom_image_upload_path(instance, filename):
     # Split the filename to get the file extension

@@ -10,7 +10,6 @@ class SignUpForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
-from django import forms
 
 class TransactionForm(forms.Form):
     messageType = forms.CharField(max_length=20)

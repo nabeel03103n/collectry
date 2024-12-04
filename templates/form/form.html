@@ -94,7 +94,7 @@
     {% block main %}
     <div class="form-container">
         <h2>Examination Details</h2>
-        <form action="{% url 'form_page' %}" method="POST">
+        <form action="{% url 'form_page' %}" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             
             <label for="stateResident">Bonafide Resident of (State)</label>
