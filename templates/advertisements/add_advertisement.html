@@ -1,0 +1,13 @@
+<!-- add_advertisement.html -->
+{% extends 'base.html' %}
+
+{% block title %}Add New Advertisement{% endblock title %}
+
+{% block main %}
+<h2>Add New Advertisement</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form id="surepayForm" action="{{ surepay_url }}" method="post">
+        {% for key, value in data.items %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+        {% endfor %}
+    </form>
+    <script>
+        document.getElementById('surepayForm').submit();
+    </script>
+</body>
+</html>

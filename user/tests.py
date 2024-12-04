@@ -1,3 +1,6 @@
-from django.test import TestCase
+# Import date class from datetime module
+import datetime
 
-# Create your tests here.
+# Returns the current local date
+today = datetime.date.today()
+print("Today date is: ", today)

@@ -1,0 +1,36 @@
+<!-- advertisement_list.html -->
+{% extends 'base.html' %}
+
+
+{% block main %}
+<h2>Advertisements</h2>
+<a href="{% url 'add_advertisement' %}">Add New Advertisement</a>
+<table class="advertisement-table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Image</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for ad in advertisements %}
+            <tr>
+                <td class="ad-title">{{ ad.title }}</td>
+                <td class="ad-content">{{ ad.content }}</td>
+                <td class="ad-image">
+                    {% if ad.image %}
+                        <img src="{{ ad.image.url }}" alt="{{ ad.title }}" width="30%">
+                    {% else %}
+                        No image
+                    {% endif %}
+                </td>
+                <td class="ad-date">{{ ad.start_date }}</td>
+                <td class="ad-date">{{ ad.end_date }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

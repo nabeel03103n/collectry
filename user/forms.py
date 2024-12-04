@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from .models import *
 
 class SignUpForm(UserCreationForm):
     email = forms.EmailField(max_length=254, required=True, help_text='Required. Enter a valid email address.')
@@ -27,3 +28,18 @@ class TransactionForm(forms.Form):
     additionalField3 = forms.CharField(max_length=50, required=False)
     additionalField4 = forms.CharField(max_length=50, required=False)
     additionalField5 = forms.CharField(max_length=50, required=False)
+
+    
+class AdvertisementForm(forms.ModelForm):
+    class Meta:
+        model = Advertisement
+        fields = ['title', 'content', 'image', 'start_date', 'end_date']
+
+
+class LocationForm(forms.ModelForm):
+    class Meta:
+        model = Location
+        fields = ['state', 'district']
+
+    # You may want to filter states dynamically in the form (optional)
+

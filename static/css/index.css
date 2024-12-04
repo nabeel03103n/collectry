@@ -1,10 +1,20 @@
 
+*{
+    margin: 0;padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-decoration: none;
+}
 
 .emitra{
     display: inline;
     width: 90%;
+    
+
 
 }
+
+
+
 
 .left_keys{
     /* position: absolute; */

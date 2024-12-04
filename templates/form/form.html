@@ -1,0 +1,329 @@
+{% extends "base.html" %}
+
+<html lang="en">
+    <head>
+    {% block title %}Application Form{% endblock %}
+    {% block style %}
+      
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="/static/css/form.css">
+    <!-- Include jQuery first -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+       
+        $(document).ready(function() {
+            // Your code here that uses jQuery's $ symbol
+            $('#stateResident').on('change', function() {
+                let selectedState = $(this).val();
+
+                if (selectedState) {
+                    $.ajax({
+                        url: "{% url 'get_districts' %}",  // URL to fetch districts
+                        type: "POST",
+                        data: {
+                            'state': selectedState,  // Send the selected state
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'  // Send CSRF token for POST request
+                        },
+                        success: function(response) {
+                            // Clear current districts
+                            let districtSelect = $('#districtResident');
+                            districtSelect.empty();  // Clear any previous districts
+
+                            if (response.districts.length > 0) {
+                                response.districts.forEach(function(district) {
+                                    districtSelect.append('<option value="' + district + '">' + district + '</option>');
+                                });
+                            } else {
+                                districtSelect.append('<option value="">No districts found</option>');
+                            }
+                        },
+                        error: function() {
+                            alert("Error loading districts.");
+                        }
+                    });
+                } else {
+                    // If no state is selected, show a placeholder option
+                    $('#districtResident').empty().append('<option value="">Select State first</option>');
+                }
+            });
+        });
+       
+        $(document).ready(function() {
+            // Your code here that uses jQuery's $ symbol
+            $('#userstate').on('change', function() {
+                let selectedState = $(this).val();
+
+                if (selectedState) {
+                    $.ajax({
+                        url: "{% url 'get_districts' %}",  // URL to fetch districts
+                        type: "POST",
+                        data: {
+                            'state': selectedState,  // Send the selected state
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'  // Send CSRF token for POST request
+                        },
+                        success: function(response) {
+                            // Clear current districts
+                            let districtSelect = $('#userdistrict');
+                            districtSelect.empty();  // Clear any previous districts
+
+                            if (response.districts.length > 0) {
+                                response.districts.forEach(function(district) {
+                                    districtSelect.append('<option value="' + district + '">' + district + '</option>');
+                                });
+                            } else {
+                                districtSelect.append('<option value="">No districts found</option>');
+                            }
+                        },
+                        error: function() {
+                            alert("Error loading districts.");
+                        }
+                    });
+                } else {
+                    // If no state is selected, show a placeholder option
+                    $('#districtResident').empty().append('<option value="">Select State first</option>');
+                }
+            });
+        });
+    </script>
+{% endblock style %}
+</head>
+<body>
+    {% block main %}
+    <div class="form-container">
+        <h2>Examination Details</h2>
+        <form action="{% url 'form_page' %}" method="POST">
+            {% csrf_token %}
+            
+            <label for="stateResident">Bonafide Resident of (State)</label>
+            <select name="state" id="stateResident">
+                <option value="">Select State</option>
+                {% for state in states %}
+                <option value="{{ state }}">{{ state }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="districtResident">Examination Center</label>
+            <select name="district" id="districtResident">
+                <option value="">Select State first</option> <!-- Placeholder initially -->
+            </select>
+
+            <hr>
+            <h2>Candidate Details</h2>
+            <label for="fullName">Full Name</label>
+            <input type="text" name="fullName" id="fullName"><br>
+            
+            <label for="fatherName">Father's Name</label>
+            <input type="text" name="fatherName" id="fatherName"><br>
+            
+            <label for="motherName">Mother's Name</label>
+            <input type="text" name="motherName" id="motherName"><br>
+
+            <label for="DOB">Date of Birth</label>
+            <input type="date" id="DOB" name="DOB">
+            
+            <label for="category">Category</label>
+            <select name="category" id="category">
+                <option value="general">General</option>
+                <option value="obc">OBC</option>
+                <option value="obc non creamy layer">OBC Non Creamy Layer</option>
+                <option value="sc">SC</option>
+                <option value="st">ST</option>
+            </select>
+<br>
+            <div>
+
+                <label >Gender</label><br>
+                <label for="male">Male</label>
+                <input type="radio" name="gender" id="male" value="male">
+                <label for="female">Female</label>
+                <input type="radio" name="gender" id="female" value="female">
+            </div>
+
+            <label for="nationality">Nationality</label>
+            <select name="nationality" id="nationality">
+                <option value="indian">Indian</option>
+                <option value="other">Other Country</option>
+            </select>
+
+            <label for="marital">Marital Status</label>
+            <select name="marital" id="marital">
+
+                <option value="married">Married</option>
+                <option value="unmarried">Unmarried</option>
+                <option value="widow">Widow</option>
+                <option value="divorce">Divorce</option>
+
+            </select>
+<hr>
+<h2>Special Categories</h2>
+            <div>
+                <label>Person With Disability</label><br>
+                <label for="disability">Yes</label>
+                <input type="radio" name="disability" id="yes" value="yes">
+                <label for="disability">No</label>
+                <input type="radio" name="disability" id="no" value="no">
+            </div>
+
+            <label for="select_disability"></label>
+            <select name="select_disability" id="select_disability">
+                <option value="select">Select</option>
+                <option value="hearing">Hearing Impaired</option>
+                <option value="locomotor">Locomoter</option>
+                <option value="visual">Visual Impaired</option>
+
+            </select>
+<br>
+            <div>
+                <label>Employee of DSRVS</label><br>
+                <label for="DSRVS">Yes</label>
+                <input type="radio" name="DSRVS" value="yes">
+                <label for="DSRVS">No</label>
+                <input type="radio" name="DSRVS" value="no">
+            </div>
+
+            <hr>
+            <h2>Correspondence Address Details</h2>
+            <label for="address">Address</label>
+            <input type="text" name="address" id="address">
+
+            <label for="city">City / Village</label>
+            <input type="text" name="city">
+
+            <label for="state">State</label>
+            <select name="userstate" id="userstate">
+                <option value="">Select State</option>
+                {% for state in states %}
+                <option value="{{ state }}">{{ state }}</option>
+                {% endfor %}
+            </select>
+
+            <label for="userdistrict">District</label>
+            <select name="userdistrict" id="userdistrict">
+                <option value="">Select State first</option> <!-- Placeholder initially -->
+            </select>
+
+            <label for="pin_code">Pin Code</label>
+            <input type="number" name="pin_code">
+
+            <label for="phone">Phone No</label>
+            <input type="number" name="phone">
+            
+            <label for="mobile">Mobile No</label>
+            <input type="number" name="mobile">
+
+            <label for="email">Email</label>
+            <input type="email" name="email">
+<br>
+<hr>
+            <h2>Educational Qualifications</h2>
+
+            <div>
+
+                
+                <label for="passing_year">ITI/Vocational</label>
+                <input type="text" name="passing_year" placeholder="Required (Passing Year)">
+                <input type="text" name="diviosn_grade" placeholder="Required (Division/Grade)">
+            </div>
+
+            <div>
+
+                <label for="secondary_passing_year">Secondary</label>
+                <input type="text" name="secondary_passing_year" placeholder="Optional (Passing Year)">
+                <input type="text" name="secondary_passing_grade" placeholder="Optional (Division/Grades)">
+            </div>
+
+            <div>
+
+                <label for="higher_secondary_passing_year">Higher Secondary</label>
+                <input type="text" name="higher_secondary_passing_year" placeholder="Optional (Passing Year)">
+                <input type="text" name="higher_secondary_passing_grade" placeholder="Optional (Division/Grades)">
+            </div>
+
+            <div>
+
+                <label for="graduate">Graduate</label>
+                <input type="text" name="graduate_passing_year" placeholder="Optional (Passing Year)">
+                <input type="text" name="graduate_passing_grade" placeholder="Optional (Division/Grades)">
+            </div>
+
+            <div>
+
+                <label for="post_graduate">Post Graduate</label>
+                <input type="text" name="post_graduate_passing_year" placeholder="Optional (Passing Year)">
+                <input type="text" name="post_graduate_passing_grade" placeholder="Optional (Division/Grades)">
+            </div>
+
+            <div>
+
+                <label for="professional">Professional</label>
+                <input type="text" name="professional_passing_year" placeholder="Optional (Passing Year)">
+                <input type="text" name="professional_passing_grade" placeholder="Optional (Division/Grades)">
+            </div>
+
+            <hr>
+            <h2>Identification Details</h2>
+
+    <label for="id_proof_select">ID Proof Type</label>
+    <select name="id_proof_select" id="id_proof_select">
+        
+        <option value="pan_card">Pan Card</option>
+        <option value="driving_license">Driving License</option>
+        <option value="voter_id">Voter ID Card</option>
+        <option value="passport">Passport</option>
+        <option value="adhar">Adhar Card</option>
+
+    </select>
+
+<label for="id_proof_number">ID Proof Number</label>
+<input type="text" name="id_proof_number">
+
+<label for="id_proof_marks">Identification Marks on Body</label>
+<input type="text" name="id_proof_marks">
+
+<div style="margin: 5px;">
+
+    <label>Study Center ID</label><br>
+    <label for="id_proof_study_center">Yes</label>
+    <input type="radio" name="id_proof_study_center" value="yes">
+    <label for="id_proof_study_center">No</label>
+    <input type="radio" name="id_proof_study_center" value="no">
+</div>
+
+<div style="margin: 5px;">
+    <label>School ID</label><br>
+    <label for="id_proof_school">Yes</label>
+    <input type="radio" name="id_proof_school" value="yes">
+    <label for="id_proof_school">No</label>
+    <input type="radio" name="id_proof_school" value="no">
+</div>
+
+<hr>
+<h2>Declaration</h2>
+<p>I have carefully read the terms and conditions of notification, instructions and relevant rules before filling up the application form online and I hereby undertake to abide by them, particularly conditions of eligibility prescribed for application. I hereby declare & verify that all informations made in this application form are true, complete and correct. In the event of any information being found false or incorrect or the ineligibility being detected, action, as deemed fit, can be taken against me by the DSRVS at any stage. I further declare & verify that I fulfill all the conditions of eligibility regarding age, educational qualification, experience, fitness, character etc. prescribed for admission to the Examination/Interview. I also declare that I shall not directly or indirectly influence the selection process in any manner.</p>
+
+<div>
+
+    <label for="i_agree">I Agree</label>
+    <input type="checkbox" name="i_agree">
+</div>
+
+<hr>
+
+<label for="passport_size_photo">Upload Passport Size Photo</label>
+<h6>Max. Upload Size 3kb to 20 kb</h6>
+
+<input type="file" name="passport_size_photo" id="passport_size_photo" accept="image/*">
+
+
+            <!-- Additional fields as in your original form -->
+            <button type="submit">Submit Application</button>
+        </form>
+    </div>
+
+
+    {% endblock %}
+</body>
+</html>

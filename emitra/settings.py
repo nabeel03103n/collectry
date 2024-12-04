@@ -158,3 +158,8 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'emitraapi@gmail.com'
 EMAIL_HOST_PASSWORD = 'jjbb cypt fcxu khjd'
 
+# This should be where uploaded files are stored on your filesystem
+MEDIA_URL = '/media/'
+
+# This should be the folder where images are saved (ensure it exists)
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

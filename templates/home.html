@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+<head>{% block title %}Home{% endblock title %}
+
+    <link rel="stylesheet" href="/static/css/home.css">
+</head>
+{% block main %}
+<body>
+    
+    <!-- News Slider -->
+    <section class="news-slider">
+        <div class="slider">
+            <div class="slide">
+                <p>News 1: Important Update on the ARDO exam...</p>
+            </div>
+            <div class="slide">
+                <p>News 2: Registration for new applications is now open...</p>
+            </div>
+            <div class="slide">
+                <p>News 3: Blacklisted candidates can reapply for exams...</p>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <!-- Advertisement Left -->
+        <div class="advertisement left-ad">
+            <h2>Advertisement</h2>
+            <img width="25%" src="/static/img/1.jpg" alt="Left Advertisement">
+            <p>Your ad could be here!</p>
+        </div>
+        
+        <!-- Content Box -->
+        <div class="content-box">
+            <img width="25%" src="/static/img/1.jpg" alt="Exam Illustration">
+            <p>Prepare for your upcoming exams with our comprehensive study guides and online courses.</p>
+        </div>
+        
+        <!-- Advertisement Right -->
+        <div class="advertisement right-ad">
+            <h2>Advertisement</h2>
+            <img width="25%" src="/static/img/1.jpg" alt="Right Advertisement">
+            <p>Your ad could be here!</p>
+        </div>
+    </main>
+    {% endblock main %}
+</body>
+    

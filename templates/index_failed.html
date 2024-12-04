@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block style %}
+
+<link rel="stylesheet" href="/static/css/index.css">
+<script src="/static/js/index.js"></script>
+
+<style>
+    .btn {
+        justify-content: center;
+    }
+</style>
+
+{% endblock style %}
+
+
+{% block title %}Home{% endblock title %}
+
+{% block main %}
+
+<!-- <h1>Emitra - Dashboard</h1> -->
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+
+
+    <input type="hidden" value="{{user.username}}" id="username" name="username">
+</form>
+<center>
+    <h3>Hi {{ user.username }}</h3><br>
+
+
+    <div class="emitra left_keys">
+<h2>Sorry but cannot provide the details</h2>
+
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button class="btn" type="submit">logout</button>
+</form>
+{% else %}
+<p> You're not logged in</p>
+<button class="btn"><a href="/signup">Sign up</a></button>
+<a href="{% url 'login' %}">Login</a>
+
+{% endif %}
+
+
+{% endblock main %}

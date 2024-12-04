@@ -1,4 +1,3 @@
-<!-- initiate_transaction.html -->
 {% extends "base.html" %}
 <!DOCTYPE html>
 <html>
@@ -10,26 +9,26 @@
 <body>
     {% block main %}
     <h2>Initiate Transaction</h2>
-    <form method="post" enctype="multipart/form-data"
-        action="https://pilot.surepay.ndml.in/SurePayPayment/v1/queryPaymentStatus">
-        <input type="hidden" name="csrfmiddlewaretoken"
-            value="mjNNIxC9u3ct3wAkJTFdAjcJMLSxleVry9WYA1k8ho0bXxsl7UBHk1yeuGipyDRw">
-        <input type="hidden" value="" name="messageType" required id="id_messageType">
+    <p>You are about to pay ₹250.00</p>
+
+    <form method="post" enctype="multipart/form-data" action="{% url 'initiate_transaction' %}">
+        {% csrf_token %}
+        <input type="hidden" value="0100" name="messageType" required id="id_messageType">
         <input type="hidden" value="UATIDEEDSG0000001536" name="merchantId" required id="id_merchantId">
         <input type="hidden" value="IDEED03" name="serviceId" required id="id_serviceId">
-        <input type="hidden" value="1" name="orderId" required id="id_orderId">
-        <input type="hidden" value="1" name="customerId" required id="id_customerId">
-        <input type="hidden" value="250" name="transactionAmount" step="0.01" required id="id_transactionAmount">
+        <input type="hidden" value="{{ orderId }}" name="orderId" required id="id_orderId">
+        <input type="hidden" value="7555706067" name="customerId" required id="id_customerId">
+        <input type="hidden" value="250.00" name="transactionAmount" step="0.01" required id="id_transactionAmount">
         <input type="hidden" value="INR" name="currencyCode" maxlength="3" required id="id_currencyCode">
-        <input type="hidden" value="" name="requestDateTime" placeholder="dd-mm-yyyy" required id="id_requestDateTime">
-        <input type="hidden" value="https://www.google.com" name="successUrl" required id="id_successUrl">
-        <input type="hidden" value="https://www.instagram.com" name="failUrl" required id="id_failUrl">
+        <input type="hidden" value="{{ requestDateTime }}" name="requestDateTime" placeholder="dd-mm-yyyy" required id="id_requestDateTime">
+        <input type="hidden" value="https://dsrvsindia.ac.in/" name="successUrl" required id="id_successUrl">
+        <input type="hidden" value="https://www.google.com" name="failUrl" required id="id_failUrl">
         <input type="hidden" value="" name="additionalField1" id="id_additionalField1">
         <input type="hidden" value="" name="additionalField2" id="id_additionalField2">
         <input type="hidden" value="" name="additionalField3" id="id_additionalField3">
         <input type="hidden" value="" name="additionalField4" id="id_additionalField4">
         <input type="hidden" value="" name="additionalField5" id="id_additionalField5">
-        <button type="submit">Pay 250₹</button>
+        <button type="submit">Pay ₹250</button>
     </form>
     {% endblock main %}
 </body>

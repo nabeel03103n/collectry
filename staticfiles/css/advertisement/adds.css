@@ -1,0 +1,57 @@
+/* CSS for advertisements displayed in a table with outlines */
+
+/* Style for the entire table */
+.advertisement-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 16px;
+    text-align: left;
+    border: 2px solid #333;  /* Outline for the entire table */
+}
+
+/* Style for the table header */
+.advertisement-table thead {
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #333;  /* Bottom outline for the header */
+}
+
+.advertisement-table th,
+.advertisement-table td {
+    padding: 12px;
+    border: 1px solid #ddd;  /* Light border around cells */
+}
+
+/* Header text style */
+.advertisement-table th {
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+}
+
+/* Styles for the advertisement content */
+.advertisement-table .ad-image img {
+    max-width: 100px; /* Limit image size */
+    height: auto;
+    border-radius: 4px;
+}
+
+.advertisement-table .ad-content {
+    max-width: 400px; /* Limit content width */
+    overflow-wrap: break-word;
+}
+
+/* Style for date cells */
+.advertisement-table .ad-date {
+    color: #666;
+    font-size: 0.9em;
+}
+
+/* Style for table rows (optional) */
+.advertisement-table tr:nth-child(even) {
+    background-color: #f9f9f9;  /* Zebra striping for rows */
+}
+
+.advertisement-table tr:hover {
+    background-color: #f1f1f1;  /* Highlight row on hover */
+}

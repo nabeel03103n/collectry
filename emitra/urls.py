@@ -28,7 +28,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("accounts/",include("django.contrib.auth.urls")),
     path('signup/', views.signup, name='signup'),
-    path('',views.index,name="home"),
+    path('emitra/',views.index,name="home"),
+    path('',views.home,name="home1"),
     path('about/',views.about,name="about"),
     path('contact/',views.contact,name="contact"),
     path('services/',views.services,name="services"),
@@ -36,15 +37,23 @@ urlpatterns = [
     path('donations/',views.donations,name="donations"),
     path('newbranch/',views.newbranch,name="newbranch"),
     path('initiate-transaction/', views.initiate_transaction, name='initiate_transaction'),
-    path('transaction-status/', views.transaction_status, name='transaction_status'),
-    path('refund-transaction/', views.refund_transaction, name='refund_transaction'),
+    # path('transaction-status/', views.transaction_status, name='transaction_status'),
+    # path('refund-transaction/', views.refund_transaction, name='refund_transaction'),
     path('send-email/', views.send_email, name='send_email'),
-    path('payment-success/',views.payment_sucess,name='payment-sucess'),
-    path('payment-fail/',views.payment_fail,name='payment-failed')
+    path('payment-success/',views.payment_success,name='payment-sucess'),
+    path('payment-fail/',views.payment_fail,name='payment-failed'),
+    path('form/', views.form_page, name='form_page'), 
+    path('advertisements/add/', views.add_advertisement, name='add_advertisement'),
+     path('advertisements/', views.advertisement_list, name='advertisement_list'),
+     path('get_districts/', views.get_districts, name='get_districts'),
 
 
 ] 
-from django.contrib import admin
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 
 # Admin Site Config
 admin.sites.AdminSite.site_header = 'Emitra Admin Panel'

@@ -1,58 +1,82 @@
-    {% extends "base.html" %}
-    {% block style %}
-      
-    <link rel="stylesheet" href="/static/css/index.css">
-    <script src="/static/js/index.js"></script>
-    {% endblock style %}
-    {% block title %}Home{% endblock title %}
-    
-    {% block main %}
-    
-    <!-- <h1>Emitra - Dashboard</h1> -->
-    {% if user.is_authenticated %}
-    <center>
-        <h3>Hi what {{ user.username }}</h3><br>
+{% extends "base.html" %}
+{% block style %}
 
-        <div id="infoCon">
-            <form method="post" action="/">
-                {% csrf_token %}
+<link rel="stylesheet" href="/static/css/index.css">
+<script src="/static/js/index.js"></script>
 
-                <label for="merchantID">Merchant ID:</label>
-                <input type="text" name="merchantID" id="merchantID" required>
-                <label for="SSOID">SSOID:</label>
-                <input type="text" name="SSOID" id="SSOID">
-            <button id="button" type="submit">Submit</button>
+<style>
+    .btn {
+        justify-content: center;
+    }
 
-            </div>
-        </form>
+    table {
+        width: 80%;
+        margin: auto;
+        border-collapse: collapse;
+    }
 
-<div class="emitra left_keys">
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
 
-    {% for element in keys %}
-    <h6>{{ element }}</h6>
-    {% endfor %}
-</div>
-    <div class="emitra right_values">
+    th {
+        background-color: #f2f2f2;
+    }
 
-        
-        {% for element in values %}
-        <h6>{{ element }}</h6>
-        {% endfor %}
-    </div>    
-        
-    </center>
-    
-    <form method="post" action="{% url 'logout' %}">
-        {% csrf_token %}
-        <button type="submit">logout</button>
-    </form>
+    tr:hover {
+        background-color: #f9f9f9;
+    }
+</style>
+
+{% endblock style %}
+
+
+{% block title %}Home{% endblock title %}
+
+{% block main %}
+
+{% if user.is_authenticated %}
+<form method="post">
+    {% csrf_token %}
+    <input type="hidden" value="{{ user.username }}" id="username" name="username">
+</form>
+<center>
+    <h3>Welcome, {{ user.username }}</h3><br>
+
+    {% if data %}
+    <div class="emitra left_keys">
+        <table>
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in data %}
+                <tr>
+                    <td>{{ key }}</td>
+                    <td>{{ value }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% else %}
-    <p> You're not logged in</p>
-    <a href="/signup">Sign up</a>
-    <a href="{% url 'login' %}">Login</a>
-    
+    <p>No data available to display.</p>
     {% endif %}
-    
+</center>
 
-    {% endblock main %}
-    
+<form method="post" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button class="btn" type="submit">Logout</button>
+</form>
+{% else %}
+<p>You're not logged in.</p>
+<button class="btn"><a href="/signup">Sign up</a></button>
+<a href="{% url 'login' %}">Login</a>
+{% endif %}
+
+{% endblock main %}
