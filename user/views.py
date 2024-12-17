@@ -156,6 +156,11 @@ def query_transaction_status(merchant_id, order_id, bank_reference_id=None):
     except Exception as e:
         return {"error": "Exception occurred", "details": str(e)}
 
+
+#Emitra API (payment)
+from . import emitra_api
+
+# Sure Pay API (payment)
 orderId = ""
 transactionAmount = 0
 merchantId = ""
@@ -288,12 +293,12 @@ def add_advertisement(request):
     # return render(request, 'advertisements/add_advertisement.html', {'form': form})
 
 
-def special_login(request):
-    # Get ssoid and merchantid parameters from the URL (or POST request)
-    ssoid = request.GET.get('ssoid')
-    merchantid = request.GET.get('merchantid')
-    response = get_emitra_api_response(ssoid,merchantid)
-    return HttpResponse(f"{response}")
+# def special_login(request):
+#     # Get ssoid and merchantid parameters from the URL (or POST request)
+#     ssoid = request.GET.get('ssoid')
+#     merchantid = request.GET.get('merchantid')
+#     response = get_emitra_api_response(ssoid,merchantid)
+#     return HttpResponse(f"{response}")
     
 
 def signup(request):
@@ -369,9 +374,6 @@ def donations(request):
 def newbranch(request):
     return render(request, 'newbranch.html')
 
-def payment_page(request):
-    return render(request,"query_payment_status.html")
-
 # views.py
 
 def form_page(request):
@@ -423,10 +425,7 @@ def form_page(request):
             "id_proof_study_center": request.POST.get("id_proof_study_center"),
             "id_proof_school": request.POST.get("id_proof_school"),
             "i_agree": request.POST.get("i_agree"),
-            "passport_size_photo": request.POST.get("passport_size_photo"),
-
-
-
+            "passport_size_photo": request.FILES.get("passport_size_photo"),
 
             # Add any other data you want to process or display
         }

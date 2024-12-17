@@ -44,9 +44,13 @@ urlpatterns = [
     path('payment-fail/',views.payment_fail,name='payment-failed'),
     path('form/', views.form_page, name='form_page'), 
     path('advertisements/add/', views.add_advertisement, name='add_advertisement'),
-     path('advertisements/', views.advertisement_list, name='advertisement_list'),
-     path('get_districts/', views.get_districts, name='get_districts'),
-     path('special-login/', views.special_login, name='special_login'),
+    path('advertisements/', views.advertisement_list, name='advertisement_list'),
+    path('get_districts/', views.get_districts, name='get_districts'),
+    # path('special-login/', views.special_login, name='special_login'),
+    path('payment/', views.emitra_api.payment_page, name='payment_page'),
+    path('initiate-payment/', views.emitra_api.initiate_payment, name='initiate_payment'),
+    path('verify-payment/<str:transaction_id>/', views.emitra_api.verify_payment, name='verify_payment'),
+
      
 
 

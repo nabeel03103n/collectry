@@ -56,13 +56,13 @@ class InfoAPI(models.Model):
         return objName
 
 
-#Special Login
-class UserProfile(models.Model):
-    ssoid = models.CharField(max_length=100, unique=True)
-    merchantid = models.CharField(max_length=100, unique=True)
+# #Special Login
+# class UserProfile(models.Model):
+#     ssoid = models.CharField(max_length=100, unique=True)
+#     merchantid = models.CharField(max_length=100, unique=True)
 
-    def __str__(self):
-        return self.ssoid
+#     def __str__(self):
+#         return self.ssoid
 
 
 class Location(models.Model):

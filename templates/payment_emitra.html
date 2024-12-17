@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block main %}
+
+<h1>Make a Payment</h1>
+<form action="{% url 'initiate_payment' %}" method="post">
+    {% csrf_token %}
+    <label for="amount">Amount:</label>
+    <input type="text" id="amount" name="amount" value="3000.00" readonly><br><br>
+    
+    <label for="name">Consumer Name:</label>
+    <input type="text" id="name" name="consumer_name" value="John Doe"><br><br>
+    
+    <button type="submit">Pay Now</button>
+</form>
+
+{% endblock main %}

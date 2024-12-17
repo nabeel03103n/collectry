@@ -8,7 +8,7 @@ admin.site.register(InfoAPI)
 admin.site.register(Payment)
 admin.site.register(Location)
 admin.site.register(UserForm)
-admin.site.register(UserProfile)
+# admin.site.register(UserProfile)
 # admin.site.register(UserProfile)
 
 
