@@ -158,7 +158,7 @@ def query_transaction_status(merchant_id, order_id, bank_reference_id=None):
 
 
 #Emitra API (payment)
-from . import emitra_api
+# from . import emitra_api
 
 # Sure Pay API (payment)
 orderId = ""
@@ -328,8 +328,8 @@ def home(request):
 
     return render(request,"home.html",{"advertisements":advertisements})
 
-
-def create_pdf(filename, content):
+from reportlab.lib.units import inch
+def create_pdf(filename, content, image_1_path=None,image_2_path=None):
     c = canvas.Canvas(filename, pagesize=letter)
     y = 750  # Starting y position for text
     c.setTitle("User Information")
@@ -338,6 +338,19 @@ def create_pdf(filename, content):
     for line in content:
         c.drawString(100, y, line)  # Draw each line with horizontal positioning
         y -= 20  # Move down 20 units for each new line
+    
+    try:
+        # If the image path is provided, draw the image
+        if image_1_path and image_2_path:
+            # Set the position where the image will be placed (X, Y) and the size of the image
+            c.drawImage(image_1_path, 100, y - 100, width=1.5*inch, height=1.5*inch)  # Adjust the width and height as needed
+            y -= 150
+            c.drawImage(image_2_path, 100, y - 100, width=1.5*inch, height=1.5*inch)  # Adjust the width and height as needed
+            y -= 150
+    except IOError:
+        print(f"Error: Could not open image {image_1_path or image_2_path}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
     
     c.save()
 
@@ -373,6 +386,16 @@ def donations(request):
 
 def newbranch(request):
     return render(request, 'newbranch.html')
+
+def termsAndCondition(request):
+    return HttpResponse("This is termsAndCondition page")
+
+def privacyPolicy(request):
+    return HttpResponse("This is privacyPolicy page")
+
+def GrievanceRedressalPolicy(request):
+    return HttpResponse("This is GrievanceRedressalPolicy page")
+
 
 # views.py
 
@@ -425,17 +448,28 @@ def form_page(request):
             "id_proof_study_center": request.POST.get("id_proof_study_center"),
             "id_proof_school": request.POST.get("id_proof_school"),
             "i_agree": request.POST.get("i_agree"),
+            "captcha_code": request.POST.get("captcha_code"),
+            "place" : request.POST.get("place_"),
+            "dated": request.POST.get("dated"),
             "passport_size_photo": request.FILES.get("passport_size_photo"),
+            "signature":request.FILES.get("signature"),
 
             # Add any other data you want to process or display
         }
+
+        # Images Fields
+        passport_size_photo = request.FILES.get("passport_size_photo")
+        passport_size_photo_path = f"media/userform/{passport_size_photo}"
+
+        signature = request.FILES.get("signature")
+        signature_path = f"media/userform/{signature}"
 
         # Get districts based on the selected state for POST request
         district = models.Location.objects.filter(state=user_state).values_list('district', flat=True).distinct()
         districts = list(district)  # Convert queryset to list for rendering
 
         user_data_for_pdf = [f"{key}: {value}" for key, value in user_data.items() if value]
-        create_pdf("static/pdf/output.pdf",user_data_for_pdf)
+        create_pdf("static/pdf/output.pdf",user_data_for_pdf,passport_size_photo_path,signature_path)
 
         model = models.UserForm.objects.create(**user_data)
 

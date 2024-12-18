@@ -312,11 +312,34 @@
 
 <hr>
 
-<label for="passport_size_photo">Upload Passport Size Photo</label>
-<h6>Max. Upload Size 3kb to 20 kb</h6>
+<div>
 
-<input type="file" name="passport_size_photo" id="passport_size_photo" accept="image/*">
+    <label for="passport_size_photo"><b>Upload Passport Size Photo:</b></label>
+    <h6>Max. Upload Size 3kb to 20 kb</h6>
+    
+    <input type="file" name="passport_size_photo" id="passport_size_photo" accept="image/*"><br>
 
+    <br>
+
+    <label for="signature"><b>Upload Signature:</b></label>
+    <input type="file" name="signature" id="signature" accept="image/*"><br><br>
+
+    <span class="captcha">
+
+        <label for="captcha_code"><b>Captcha Code:</b></label>
+        <h3>Captha Here</h3>
+        <input type="text" name="captcha_code" id="captcha_code"><br><br>
+    </span>
+
+    <label for="place_">Place:</label>
+    <input type="text" name="place_" id="place_"><br><br>
+
+    <label for="dated">Dated</label>
+    <input type="date" name="dated" id="dated">
+
+
+</div>
+    
 
             <!-- Additional fields as in your original form -->
             <button type="submit">Submit Application</button>

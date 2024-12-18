@@ -113,6 +113,10 @@ class UserForm(models.Model):
     id_proof_school = models.CharField(max_length=100,null=True,blank=True)
     i_agree = models.CharField(max_length=100,null=True,blank=True)
     passport_size_photo = models.ImageField(upload_to="userform/",null=True,blank=True)
+    signature = models.ImageField(upload_to="userform/",null=True,blank=True)
+    captcha_code = models.CharField(max_length=100,null=True,blank=True)
+    place = models.CharField(max_length=100,null=True,blank=True)
+    dated = models.CharField(max_length=100,null=True,blank=True)
 
     def __str__(self):
         return f"{self.fullName}, {self.phone}"

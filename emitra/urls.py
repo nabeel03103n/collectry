@@ -30,7 +30,12 @@ urlpatterns = [
     path('signup/', views.signup, name='signup'),
     path('emitra/',views.index,name="home"),
     path('',views.home,name="home1"),
+
     path('about/',views.about,name="about"),
+    path("about/termsAndCondition/",views.termsAndCondition,name="termsAndCondition"),
+    path("about/privacyPolicy/",views.privacyPolicy,name="privacyPolicy"),
+    path("about/GrievanceRedressalPolicy/",views.GrievanceRedressalPolicy,name="GrievanceRedressalPolicy"),
+
     path('contact/',views.contact,name="contact"),
     path('services/',views.services,name="services"),
     path('applications/',views.applications,name="applications"),
@@ -47,9 +52,9 @@ urlpatterns = [
     path('advertisements/', views.advertisement_list, name='advertisement_list'),
     path('get_districts/', views.get_districts, name='get_districts'),
     # path('special-login/', views.special_login, name='special_login'),
-    path('payment/', views.emitra_api.payment_page, name='payment_page'),
-    path('initiate-payment/', views.emitra_api.initiate_payment, name='initiate_payment'),
-    path('verify-payment/<str:transaction_id>/', views.emitra_api.verify_payment, name='verify_payment'),
+    #path('payment/', views.emitra_api.payment_page, name='payment_page'),
+    #path('initiate-payment/', views.emitra_api.initiate_payment, name='initiate_payment'),
+    #path('verify-payment/<str:transaction_id>/', views.emitra_api.verify_payment, name='verify_payment'),
 
      
 
